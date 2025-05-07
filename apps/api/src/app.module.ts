@@ -4,6 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { UsersModule } from './users/users.module'
+import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

@@ -1,6 +1,6 @@
-# Mistec - Marketplace Platform
+# Mistec - Modern Marketplace Platform
 
-A modern, scalable marketplace platform built with Next.js, NestJS, and React Native.
+A full-stack marketplace platform built with Next.js, NestJS, and React Native.
 
 ## Tech Stack
 
@@ -41,16 +41,15 @@ mistec/
 └── docs/                   # Project documentation
 ```
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
 - Node.js 18+
-- Docker
+- Docker and Docker Compose
 - PostgreSQL
 - Redis
 - Elasticsearch
 
-### Development Setup
+## Getting Started
 
 1. Clone the repository:
 ```bash
@@ -58,7 +57,12 @@ git clone https://github.com/your-org/mistec.git
 cd mistec
 ```
 
-2. Install dependencies:
+2. Start the development environment:
+```bash
+docker-compose up -d
+```
+
+3. Install dependencies:
 ```bash
 # Install root dependencies
 npm install
@@ -67,13 +71,17 @@ npm install
 npm run install:all
 ```
 
-3. Set up environment variables:
+4. Set up environment variables:
 ```bash
-cp .env.example .env
-# Edit .env with your configuration
+# Copy environment files
+cp apps/web/.env.example apps/web/.env
+cp apps/api/.env.example apps/api/.env
+cp apps/mobile/.env.example apps/mobile/.env
+
+# Edit the environment files with your configuration
 ```
 
-4. Start development servers:
+5. Start development servers:
 ```bash
 # Start all services
 npm run dev
@@ -84,19 +92,58 @@ npm run dev:api
 npm run dev:mobile
 ```
 
-## Features
+## Development
 
-- 🔐 Secure authentication with OAuth2/JWT
-- 📱 Responsive web and mobile interfaces
-- 🔍 Advanced search with Elasticsearch
-- 💳 Secure payment processing
-- 📊 Real-time analytics
-- 🔔 Push notifications
-- 🌐 Multi-language support
+### Web Application
+- Next.js application with Tailwind CSS
+- GraphQL integration with Apollo Client
+- Modern UI components with Headless UI
+- Responsive design
+
+### API
+- NestJS backend with GraphQL
+- PostgreSQL database with TypeORM
+- JWT authentication
+- Redis for caching
+- Elasticsearch for search
+
+### Mobile App
+- React Native application
+- GraphQL integration
+- Native UI components
+- Push notifications
+
+## Testing
+
+```bash
+# Run all tests
+npm run test
+
+# Run specific tests
+npm run test:web
+npm run test:api
+npm run test:mobile
+```
+
+## Deployment
+
+1. Build the applications:
+```bash
+npm run build
+```
+
+2. Deploy using your preferred cloud provider:
+- AWS
+- Google Cloud
+- Azure
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
