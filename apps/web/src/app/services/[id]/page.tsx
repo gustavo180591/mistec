@@ -1,169 +1,182 @@
 'use client'
 
-import { useState } from 'react'
+import { FC } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { StarIcon } from '@heroicons/react/20/solid'
+import ServiceFeatures from '@/components/ServiceFeatures'
+import ServicePricing from '@/components/ServicePricing'
 import ServiceReviews from '@/components/ServiceReviews'
+import ServiceFAQ from '@/components/ServiceFAQ'
+import BookingForm from '@/components/BookingForm'
 
-// Mock data for a service
-const mockService = {
+// Datos de ejemplo para el servicio
+const serviceData = {
   id: '1',
-  title: 'Professional Web Development',
-  description: 'Custom website development using modern technologies like React, Node.js, and TypeScript. Perfect for businesses looking to establish their online presence or upgrade their existing website.',
-  price: 1500,
-  imageUrl: '/images/web-dev.jpg',
+  title: 'Diseño de Sitio Web Profesional',
+  description: 'Creamos sitios web modernos y responsivos que destacan tu marca y atraen a tus clientes. Nuestro equipo de diseñadores y desarrolladores trabaja en conjunto para crear una experiencia web única y efectiva.',
+  price: 999,
+  imageUrl: '/images/services/web-design.jpg',
   provider: {
-    name: 'Tech Solutions Inc.',
-    avatar: '/images/provider1.jpg',
-    rating: 4.8,
-    reviewCount: 124,
+    id: '1',
+    name: 'María García',
+    avatarUrl: '/images/providers/maria.jpg',
+    description: 'Diseñadora web con más de 5 años de experiencia en la creación de sitios web modernos y funcionales.',
   },
+  rating: 4.9,
+  reviewCount: 128,
+  category: 'Diseño Web',
   features: [
-    'Responsive design for all devices',
-    'Modern tech stack (React, Node.js, TypeScript)',
-    'SEO optimization',
-    'Performance optimization',
-    'Security best practices',
-    '3 months of free support',
-  ],
-  reviews: [
     {
       id: '1',
-      user: {
-        name: 'John Smith',
-        avatar: '/images/user1.jpg',
-      },
-      rating: 5,
-      comment: 'Excellent service! The team delivered a high-quality website that exceeded our expectations.',
-      date: '2024-03-15',
+      name: 'Diseño responsivo',
+      description: 'Tu sitio web se verá perfecto en cualquier dispositivo',
     },
     {
       id: '2',
-      user: {
-        name: 'Sarah Johnson',
-        avatar: '/images/user2.jpg',
-      },
-      rating: 4,
-      comment: 'Great work on our website redesign. The team was professional and responsive throughout the project.',
-      date: '2024-03-10',
+      name: 'Optimización SEO',
+      description: 'Mejora tu posicionamiento en buscadores',
     },
     {
       id: '3',
-      user: {
-        name: 'Michael Brown',
-        avatar: '/images/user3.jpg',
-      },
-      rating: 5,
-      comment: 'Outstanding service! The website they built for us has significantly improved our online presence.',
-      date: '2024-03-05',
+      name: 'Integración con redes sociales',
+      description: 'Conecta tu sitio web con tus redes sociales',
+    },
+    {
+      id: '4',
+      name: 'Panel de administración',
+      description: 'Gestiona tu contenido fácilmente',
+    },
+    {
+      id: '5',
+      name: 'Soporte técnico',
+      description: 'Asistencia técnica cuando la necesites',
+    },
+    {
+      id: '6',
+      name: 'Dominio y hosting incluidos',
+      description: 'Todo lo necesario para tu sitio web',
+    },
+  ],
+  pricingPlans: [
+    {
+      id: '1',
+      name: 'Básico',
+      price: 499,
+      description: 'Ideal para pequeñas empresas',
+      features: [
+        'Diseño responsivo',
+        'Hasta 5 páginas',
+        'Formulario de contacto',
+        'Optimización básica SEO',
+      ],
+    },
+    {
+      id: '2',
+      name: 'Profesional',
+      price: 999,
+      description: 'Perfecto para empresas en crecimiento',
+      features: [
+        'Todo lo del plan Básico',
+        'Hasta 10 páginas',
+        'Integración con redes sociales',
+        'Panel de administración',
+        'Optimización SEO avanzada',
+      ],
+      popular: true,
+    },
+    {
+      id: '3',
+      name: 'Premium',
+      price: 1499,
+      description: 'Solución completa para grandes empresas',
+      features: [
+        'Todo lo del plan Profesional',
+        'Páginas ilimitadas',
+        'E-commerce básico',
+        'Blog integrado',
+        'Soporte prioritario',
+      ],
+    },
+  ],
+  faqs: [
+    {
+      id: '1',
+      question: '¿Cuánto tiempo toma desarrollar un sitio web?',
+      answer: 'El tiempo de desarrollo varía según la complejidad del proyecto. Un sitio web básico puede tomar 2-3 semanas, mientras que proyectos más complejos pueden tomar 1-2 meses.',
+    },
+    {
+      id: '2',
+      question: '¿Ofrecen mantenimiento después del lanzamiento?',
+      answer: 'Sí, ofrecemos planes de mantenimiento mensual que incluyen actualizaciones de seguridad, respaldos y soporte técnico.',
+    },
+    {
+      id: '3',
+      question: '¿Puedo hacer cambios en mi sitio web después del lanzamiento?',
+      answer: 'Sí, todos nuestros planes incluyen un panel de administración que te permite hacer cambios básicos. Para cambios más complejos, ofrecemos servicios de soporte adicional.',
     },
   ],
 }
 
 export default function ServiceDetailPage({ params }: { params: { id: string } }) {
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-x-8">
-          {/* Service Image */}
-          <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg">
-            <Image
-              src={mockService.imageUrl}
-              alt={mockService.title}
-              className="h-full w-full object-cover object-center"
-              width={800}
-              height={600}
-            />
-          </div>
-
-          {/* Service Details */}
-          <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{mockService.title}</h1>
-            
-            <div className="mt-3">
-              <h2 className="sr-only">Service information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">${mockService.price}</p>
-            </div>
-
-            <div className="mt-6">
-              <h3 className="sr-only">Description</h3>
-              <div className="space-y-6 text-base text-gray-700">{mockService.description}</div>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-lg font-medium text-gray-900">Provider</h3>
-              <div className="mt-4 flex items-center">
-                <div className="h-12 w-12 flex-shrink-0">
-                  <Image
-                    className="h-12 w-12 rounded-full"
-                    src={mockService.provider.avatar}
-                    alt={mockService.provider.name}
-                    width={48}
-                    height={48}
-                  />
-                </div>
-                <div className="ml-4">
-                  <h4 className="text-sm font-medium text-gray-900">{mockService.provider.name}</h4>
-                  <div className="mt-1 flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <svg
-                        key={rating}
-                        className={`h-4 w-4 flex-shrink-0 ${
-                          rating < mockService.provider.rating ? 'text-yellow-400' : 'text-gray-300'
-                        }`}
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ))}
-                    <p className="ml-2 text-sm text-gray-500">
-                      {mockService.provider.rating} ({mockService.provider.reviewCount} reviews)
-                    </p>
-                  </div>
-                </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Encabezado del servicio */}
+        <div className="py-8">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
+            {/* Información principal */}
+            <div className="lg:col-span-2">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
+                <Image
+                  src={serviceData.imageUrl}
+                  alt={serviceData.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
-            </div>
-
-            <div className="mt-8">
-              <h3 className="text-lg font-medium text-gray-900">Features</h3>
-              <div className="mt-4">
-                <ul className="list-disc space-y-2 pl-4 text-sm">
-                  {mockService.features.map((feature) => (
-                    <li key={feature} className="text-gray-600">
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+              <h1 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
+                {serviceData.title}
+              </h1>
+              <div className="mt-4 flex items-center space-x-4">
+                <div className="flex items-center">
+                  <StarIcon className="h-5 w-5 text-yellow-400" />
+                  <span className="ml-1 text-sm text-gray-600">
+                    {serviceData.rating} ({serviceData.reviewCount} reseñas)
+                  </span>
+                </div>
+                <span className="text-sm text-gray-500">{serviceData.category}</span>
               </div>
+              <p className="mt-4 text-lg text-gray-600">{serviceData.description}</p>
             </div>
 
-            <div className="mt-8">
-              <Link
-                href={`/services/${params.id}/book`}
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-8 py-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-              >
-                Book Now
-              </Link>
+            {/* Formulario de reserva */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-8">
+                <BookingForm
+                  serviceId={serviceData.id}
+                  serviceTitle={serviceData.title}
+                  price={serviceData.price}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Reviews Section */}
-        <div className="mt-16">
-          <ServiceReviews
-            reviews={mockService.reviews}
-            averageRating={mockService.provider.rating}
-            totalReviews={mockService.provider.reviewCount}
-          />
-        </div>
+        {/* Características del servicio */}
+        <ServiceFeatures features={serviceData.features} />
+
+        {/* Planes de precios */}
+        <ServicePricing plans={serviceData.pricingPlans} />
+
+        {/* Reseñas */}
+        <ServiceReviews
+          reviews={[]}
+          totalReviews={serviceData.reviewCount}
+          rating={serviceData.rating}
+        />
+
+        {/* Preguntas frecuentes */}
+        <ServiceFAQ faqs={serviceData.faqs} />
       </div>
     </div>
   )

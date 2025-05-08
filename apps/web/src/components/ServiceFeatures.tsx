@@ -1,12 +1,12 @@
 'use client'
 
-import { FC, SVGProps } from 'react'
+import { FC } from 'react'
+import { CheckCircleIcon } from '@heroicons/react/20/solid'
 
 interface Feature {
   id: string
   name: string
   description: string
-  icon: FC<SVGProps<SVGSVGElement>>
 }
 
 interface ServiceFeaturesProps {
@@ -17,8 +17,8 @@ interface ServiceFeaturesProps {
 
 const ServiceFeatures: FC<ServiceFeaturesProps> = ({
   features,
-  title = 'Features',
-  subtitle = 'Everything you need to know about our services',
+  title = 'Características del servicio',
+  subtitle = 'Todo lo que incluye este servicio',
 }) => {
   return (
     <div className="bg-white py-24 sm:py-32">
@@ -34,7 +34,7 @@ const ServiceFeatures: FC<ServiceFeaturesProps> = ({
             {features.map((feature) => (
               <div key={feature.id} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <feature.icon
+                  <CheckCircleIcon
                     className="h-5 w-5 flex-none text-primary-600"
                     aria-hidden="true"
                   />

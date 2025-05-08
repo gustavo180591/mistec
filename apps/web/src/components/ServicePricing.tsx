@@ -1,7 +1,7 @@
 'use client'
 
 import { FC } from 'react'
-import Link from 'next/link'
+import { CheckIcon } from '@heroicons/react/20/solid'
 
 interface PricingPlan {
   id: string
@@ -9,7 +9,7 @@ interface PricingPlan {
   description: string
   price: number
   features: string[]
-  popular?: boolean
+  isPopular?: boolean
 }
 
 interface ServicePricingProps {
@@ -20,27 +20,31 @@ interface ServicePricingProps {
 
 const ServicePricing: FC<ServicePricingProps> = ({
   plans,
-  title = 'Pricing Plans',
-  subtitle = 'Choose the perfect plan for your needs',
+  title = 'Planes y precios',
+  subtitle = 'Elige el plan que mejor se adapte a tus necesidades',
 }) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">{subtitle}</p>
+          <h2 className="text-base font-semibold leading-7 text-primary-600">{title}</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {subtitle}
+          </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-900/5 sm:p-10 ${
-                plan.popular ? 'lg:z-10 lg:rounded-b-none' : ''
+              className={`relative flex flex-col rounded-3xl p-8 ring-1 ring-gray-200 xl:p-10 ${
+                plan.isPopular ? 'bg-gray-50' : ''
               }`}
             >
-              {plan.popular && (
-                <div className="absolute -top-4 left-0 right-0 mx-auto w-32 rounded-full bg-primary-600 px-3 py-1 text-center text-sm font-semibold text-white shadow-sm">
-                  Most popular
+              {plan.isPopular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="inline-flex items-center rounded-full bg-primary-600 px-4 py-1 text-sm font-semibold text-white">
+                    Más popular
+                  </span>
                 </div>
               )}
               <div className="flex items-center justify-between gap-x-4">
@@ -51,37 +55,28 @@ const ServicePricing: FC<ServicePricingProps> = ({
                 <span className="text-4xl font-bold tracking-tight text-gray-900">
                   ${plan.price}
                 </span>
-                <span className="text-sm font-semibold leading-6 text-gray-600">/month</span>
+                <span className="text-sm font-semibold leading-6 text-gray-600">/hora</span>
               </p>
-              <Link
-                href="#"
-                className={`mt-6 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                  plan.popular
-                    ? 'bg-primary-600 text-white hover:bg-primary-500 focus-visible:outline-primary-600'
-                    : 'bg-primary-50 text-primary-600 hover:bg-primary-100 focus-visible:outline-primary-600'
-                }`}
-              >
-                Get started today
-              </Link>
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
-                    <svg
+                    <CheckIcon
                       className="h-6 w-5 flex-none text-primary-600"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
                       aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    />
                     {feature}
                   </li>
                 ))}
               </ul>
+              <button
+                className={`mt-8 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                  plan.isPopular
+                    ? 'bg-primary-600 text-white hover:bg-primary-500 focus-visible:outline-primary-600'
+                    : 'bg-white text-primary-600 ring-1 ring-inset ring-primary-200 hover:ring-primary-300'
+                }`}
+              >
+                Contratar plan
+              </button>
             </div>
           ))}
         </div>

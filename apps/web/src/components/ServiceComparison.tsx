@@ -1,39 +1,41 @@
 'use client'
 
 import { FC } from 'react'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 
-interface Feature {
+interface ComparisonFeature {
   id: string
   name: string
   included: boolean
-  description?: string
 }
 
-interface Plan {
+interface Service {
   id: string
   name: string
-  price: number
   description: string
-  features: Feature[]
+  price: number
+  features: ComparisonFeature[]
 }
 
 interface ServiceComparisonProps {
-  plans: Plan[]
+  services: Service[]
   title?: string
   subtitle?: string
 }
 
 const ServiceComparison: FC<ServiceComparisonProps> = ({
-  plans,
-  title = 'Compare Plans',
-  subtitle = 'Find the perfect plan for your needs',
+  services,
+  title = 'Compara servicios',
+  subtitle = 'Encuentra el servicio que mejor se adapta a tus necesidades',
 }) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">{subtitle}</p>
+        <div className="mx-auto max-w-2xl lg:text-center">
+          <h2 className="text-base font-semibold leading-7 text-primary-600">{title}</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {subtitle}
+          </p>
         </div>
         <div className="mt-16 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -46,61 +48,47 @@ const ServiceComparison: FC<ServiceComparisonProps> = ({
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                       >
-                        Feature
+                        Característica
                       </th>
-                      {plans.map((plan) => (
+                      {services.map((service) => (
                         <th
-                          key={plan.id}
+                          key={service.id}
                           scope="col"
                           className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                         >
-                          {plan.name}
+                          <div className="flex flex-col">
+                            <span>{service.name}</span>
+                            <span className="text-xs font-normal text-gray-500">
+                              ${service.price}/hora
+                            </span>
+                          </div>
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {plans[0].features.map((feature) => (
+                    {services[0].features.map((feature) => (
                       <tr key={feature.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           {feature.name}
-                          {feature.description && (
-                            <p className="mt-1 text-xs text-gray-500">{feature.description}</p>
-                          )}
                         </td>
-                        {plans.map((plan) => {
-                          const planFeature = plan.features.find((f) => f.id === feature.id)
+                        {services.map((service) => {
+                          const serviceFeature = service.features.find((f) => f.id === feature.id)
                           return (
                             <td
-                              key={`${plan.id}-${feature.id}`}
+                              key={`${service.id}-${feature.id}`}
                               className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                             >
-                              {planFeature?.included ? (
-                                <svg
-                                  className="h-5 w-5 text-green-500"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
+                              {serviceFeature?.included ? (
+                                <CheckIcon
+                                  className="h-5 w-5 text-primary-600"
                                   aria-hidden="true"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
+                                />
                               ) : (
-                                <svg
-                                  className="h-5 w-5 text-red-500"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
+                                <XMarkIcon
+                                  className="h-5 w-5 text-gray-400"
                                   aria-hidden="true"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
+                                />
                               )}
                             </td>
                           )

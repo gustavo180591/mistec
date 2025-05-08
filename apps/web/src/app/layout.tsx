@@ -1,13 +1,13 @@
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ApolloWrapper } from '@/lib/apollo-wrapper'
-import Navigation from '@/components/Navigation'
 import './globals.css'
+import { AuthProvider } from '@/contexts/AuthContext'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Mistec - Marketplace Platform',
-  description: 'A modern marketplace platform for services and products',
+export const metadata: Metadata = {
+  title: 'Mistec - Servicios Profesionales',
+  description: 'Encuentra los mejores servicios profesionales para tu negocio',
 }
 
 export default function RootLayout({
@@ -16,12 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen bg-gray-50">
-        <ApolloWrapper>
-          <Navigation />
-          <main>{children}</main>
-        </ApolloWrapper>
+    <html lang="es">
+      <body className={inter.className}>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )
