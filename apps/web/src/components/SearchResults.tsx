@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import ServiceCard from './ServiceCard'
 
 interface Service {
@@ -10,8 +10,9 @@ interface Service {
   price: number
   imageUrl: string
   provider: {
+    id: string
     name: string
-    avatar: string
+    avatarUrl?: string
   }
   rating: number
   reviewCount: number
@@ -25,12 +26,12 @@ interface SearchResultsProps {
   onFilterChange: (filters: { category?: string; priceRange?: string }) => void
 }
 
-export default function SearchResults({
+const SearchResults: FC<SearchResultsProps> = ({
   services,
   totalResults,
   onSortChange,
   onFilterChange,
-}: SearchResultsProps) {
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [selectedPriceRange, setSelectedPriceRange] = useState<string>('')
 
@@ -115,7 +116,11 @@ export default function SearchResults({
               description={service.description}
               price={service.price}
               imageUrl={service.imageUrl}
-              provider={service.provider}
+              provider={{
+                id: service.provider.id,
+                name: service.provider.name,
+                avatarUrl: service.provider.avatarUrl,
+              }}
               rating={service.rating}
               reviewCount={service.reviewCount}
             />
@@ -133,4 +138,6 @@ export default function SearchResults({
       </div>
     </div>
   )
-} 
+}
+
+export default SearchResults 

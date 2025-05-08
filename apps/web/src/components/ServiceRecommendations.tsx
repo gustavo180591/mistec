@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { FC } from 'react'
 
 interface Service {
   id: string
@@ -24,11 +25,11 @@ interface ServiceRecommendationsProps {
   subtitle?: string
 }
 
-export default function ServiceRecommendations({
+const ServiceRecommendations: FC<ServiceRecommendationsProps> = ({
   services,
   title = 'Recommended Services',
   subtitle = 'Services you might be interested in',
-}: ServiceRecommendationsProps) {
+}) => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -94,4 +95,6 @@ export default function ServiceRecommendations({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceRecommendations 

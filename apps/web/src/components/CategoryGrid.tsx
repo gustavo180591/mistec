@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { FC } from 'react'
 
 interface Category {
   id: string
@@ -16,7 +17,7 @@ interface CategoryGridProps {
   onCategorySelect: (categoryId: string) => void
 }
 
-export default function CategoryGrid({ categories, onCategorySelect }: CategoryGridProps) {
+const CategoryGrid: FC<CategoryGridProps> = ({ categories, onCategorySelect }) => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -60,4 +61,6 @@ export default function CategoryGrid({ categories, onCategorySelect }: CategoryG
       </div>
     </div>
   )
-} 
+}
+
+export default CategoryGrid 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FC, FormEvent, ChangeEvent } from 'react'
 import { useRouter } from 'next/navigation'
 
 interface BookingFormProps {
@@ -9,9 +9,16 @@ interface BookingFormProps {
   price: number
 }
 
-export default function BookingForm({ serviceId, serviceTitle, price }: BookingFormProps) {
+interface BookingFormData {
+  date: string
+  time: string
+  duration: string
+  notes: string
+}
+
+const BookingForm: FC<BookingFormProps> = ({ serviceId, serviceTitle, price }) => {
   const router = useRouter()
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<BookingFormData>({
     date: '',
     time: '',
     duration: '1',
@@ -19,7 +26,7 @@ export default function BookingForm({ serviceId, serviceTitle, price }: BookingF
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
 
@@ -39,7 +46,7 @@ export default function BookingForm({ serviceId, serviceTitle, price }: BookingF
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
@@ -140,4 +147,6 @@ export default function BookingForm({ serviceId, serviceTitle, price }: BookingF
       </div>
     </form>
   )
-} 
+}
+
+export default BookingForm 

@@ -1,5 +1,7 @@
 'use client'
 
+import { FC } from 'react'
+
 interface Stat {
   id: string
   name: string
@@ -13,11 +15,11 @@ interface ServiceStatsProps {
   subtitle?: string
 }
 
-export default function ServiceStats({
+const ServiceStats: FC<ServiceStatsProps> = ({
   stats,
   title = 'Service Statistics',
   subtitle = 'Key metrics and insights about our services',
-}: ServiceStatsProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -43,4 +45,6 @@ export default function ServiceStats({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceStats 

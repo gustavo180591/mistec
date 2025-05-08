@@ -1,12 +1,17 @@
 'use client'
 
-import { Fragment } from 'react'
+import { Fragment, FC } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const navigation = [
+interface NavigationItem {
+  name: string
+  href: string
+}
+
+const navigation: NavigationItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
   { name: 'Providers', href: '/providers' },
@@ -17,7 +22,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navigation() {
+const Navigation: FC = () => {
   const pathname = usePathname()
 
   return (
@@ -117,4 +122,6 @@ export default function Navigation() {
       )}
     </Disclosure>
   )
-} 
+}
+
+export default Navigation 
