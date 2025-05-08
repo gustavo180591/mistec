@@ -1,81 +1,131 @@
-import Link from 'next/link'
+'use client'
+
+import Hero from '@/components/Hero'
+import FeaturedServices from '@/components/FeaturedServices'
+import HowItWorks from '@/components/HowItWorks'
+import ServiceCategories from '@/components/ServiceCategories'
+import ServiceTestimonials from '@/components/ServiceTestimonials'
+
+// Datos de ejemplo para los servicios destacados
+const featuredServices = [
+  {
+    id: '1',
+    title: 'Diseño de Sitio Web Profesional',
+    description: 'Creamos sitios web modernos y responsivos que destacan tu marca y atraen a tus clientes.',
+    price: 999,
+    imageUrl: '/images/services/web-design.jpg',
+    provider: {
+      id: '1',
+      name: 'María García',
+      avatarUrl: '/images/providers/maria.jpg',
+    },
+    rating: 4.9,
+    reviewCount: 128,
+    category: 'Diseño Web',
+  },
+  {
+    id: '2',
+    title: 'Marketing Digital Completo',
+    description: 'Estrategias de marketing digital personalizadas para aumentar tu presencia online.',
+    price: 799,
+    imageUrl: '/images/services/digital-marketing.jpg',
+    provider: {
+      id: '2',
+      name: 'Carlos Rodríguez',
+      avatarUrl: '/images/providers/carlos.jpg',
+    },
+    rating: 4.8,
+    reviewCount: 95,
+    category: 'Marketing',
+  },
+  {
+    id: '3',
+    title: 'Desarrollo de Aplicación Móvil',
+    description: 'Desarrollamos aplicaciones móviles nativas y multiplataforma para iOS y Android.',
+    price: 1499,
+    imageUrl: '/images/services/mobile-app.jpg',
+    provider: {
+      id: '3',
+      name: 'Ana Martínez',
+      avatarUrl: '/images/providers/ana.jpg',
+    },
+    rating: 4.9,
+    reviewCount: 156,
+    category: 'Desarrollo Móvil',
+  },
+]
+
+// Datos de ejemplo para las categorías
+const categories = [
+  {
+    id: 'web-development',
+    name: 'Desarrollo Web',
+    description: 'Sitios web y aplicaciones web personalizadas',
+    imageUrl: '/images/categories/web-dev.jpg',
+    serviceCount: 245,
+  },
+  {
+    id: 'mobile-development',
+    name: 'Desarrollo Móvil',
+    description: 'Aplicaciones nativas y multiplataforma',
+    imageUrl: '/images/categories/mobile-dev.jpg',
+    serviceCount: 189,
+  },
+  {
+    id: 'design',
+    name: 'Diseño',
+    description: 'Diseño gráfico, UI/UX y branding',
+    imageUrl: '/images/categories/design.jpg',
+    serviceCount: 312,
+  },
+  {
+    id: 'marketing',
+    name: 'Marketing Digital',
+    description: 'SEO, redes sociales y publicidad online',
+    imageUrl: '/images/categories/marketing.jpg',
+    serviceCount: 278,
+  },
+]
+
+// Datos de ejemplo para los testimonios
+const testimonials = [
+  {
+    id: '1',
+    content: 'Excelente servicio. El profesional fue muy atento y entregó el proyecto antes de lo esperado.',
+    author: {
+      name: 'Juan Pérez',
+      role: 'CEO, TechStart',
+      imageUrl: '/images/testimonials/juan.jpg',
+    },
+  },
+  {
+    id: '2',
+    content: 'La mejor plataforma para encontrar profesionales calificados. Muy recomendada.',
+    author: {
+      name: 'Laura Sánchez',
+      role: 'Directora de Marketing',
+      imageUrl: '/images/testimonials/laura.jpg',
+    },
+  },
+  {
+    id: '3',
+    content: 'Proceso simple y transparente. Encontré exactamente lo que necesitaba.',
+    author: {
+      name: 'Roberto Gómez',
+      role: 'Emprendedor',
+      imageUrl: '/images/testimonials/roberto.jpg',
+    },
+  },
+]
 
 export default function Home() {
   return (
-    <div className="bg-white">
-      {/* Hero section */}
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-primary-100/20">
-        <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
-          <div className="px-6 lg:px-0 lg:pt-4">
-            <div className="mx-auto max-w-2xl">
-              <div className="max-w-lg">
-                <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Find the best services for your needs
-                </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Connect with trusted professionals and businesses in your area. From home services to professional expertise, find everything you need in one place.
-                </p>
-                <div className="mt-10 flex items-center gap-x-6">
-                  <Link
-                    href="/services"
-                    className="btn-primary"
-                  >
-                    Browse Services
-                  </Link>
-                  <Link
-                    href="/register"
-                    className="text-sm font-semibold leading-6 text-gray-900"
-                  >
-                    Become a Provider <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Feature section */}
-      <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-primary-600">Everything you need</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            A complete marketplace solution
-          </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Our platform provides all the tools and features you need to connect with service providers and customers.
-          </p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature) => (
-              <div key={feature.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  {feature.name}
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="flex-auto">{feature.description}</p>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    </div>
+    <main>
+      <Hero />
+      <FeaturedServices services={featuredServices} />
+      <ServiceCategories categories={categories} onCategorySelect={(id) => console.log(id)} />
+      <HowItWorks />
+      <ServiceTestimonials testimonials={testimonials} />
+    </main>
   )
-}
-
-const features = [
-  {
-    name: 'Secure Payments',
-    description: 'Safe and secure payment processing with multiple payment methods and escrow protection.',
-  },
-  {
-    name: 'Verified Providers',
-    description: 'All service providers are verified and rated by the community to ensure quality.',
-  },
-  {
-    name: 'Real-time Chat',
-    description: 'Communicate directly with service providers through our built-in messaging system.',
-  },
-] 
+} 

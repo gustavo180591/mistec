@@ -9,11 +9,11 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+        destination: 'http://localhost:4000/:path*',
       },
       {
         source: '/graphql',
-        destination: `${process.env.NEXT_PUBLIC_GRAPHQL_URL}`,
+        destination: 'http://localhost:4000/graphql',
       },
     ]
   },

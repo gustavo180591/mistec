@@ -16,15 +16,21 @@ interface ServiceCategoriesProps {
   categories: Category[]
   title?: string
   subtitle?: string
+  onCategorySelect?: (categoryId: string) => void
 }
 
 const ServiceCategories: FC<ServiceCategoriesProps> = ({
   categories,
   title = 'Service Categories',
   subtitle = 'Browse our wide range of services',
+  onCategorySelect,
 }) => {
   const handleCategoryClick = (categoryId: string) => {
-    window.location.href = `/services?category=${categoryId}`
+    if (onCategorySelect) {
+      onCategorySelect(categoryId)
+    } else {
+      window.location.href = `/services?category=${categoryId}`
+    }
   }
 
   return (
