@@ -1,5 +1,7 @@
 'use client'
 
+import { FC } from 'react'
+
 interface Feature {
   id: string
   name: string
@@ -21,11 +23,11 @@ interface ServiceComparisonProps {
   subtitle?: string
 }
 
-export default function ServiceComparison({
+const ServiceComparison: FC<ServiceComparisonProps> = ({
   plans,
   title = 'Compare Plans',
   subtitle = 'Find the perfect plan for your needs',
-}: ServiceComparisonProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -114,4 +116,6 @@ export default function ServiceComparison({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceComparison 

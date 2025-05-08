@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FC, ChangeEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -27,12 +27,12 @@ interface ServiceSearchResultsProps {
   onFilterChange: (filters: { category?: string; priceRange?: string }) => void
 }
 
-export default function ServiceSearchResults({
+const ServiceSearchResults: FC<ServiceSearchResultsProps> = ({
   services,
   totalResults,
   onSortChange,
   onFilterChange,
-}: ServiceSearchResultsProps) {
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [selectedPriceRange, setSelectedPriceRange] = useState<string>('')
 
@@ -46,6 +46,10 @@ export default function ServiceSearchResults({
     onFilterChange({ category: selectedCategory, priceRange })
   }
 
+  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onSortChange(e.target.value)
+  }
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -56,7 +60,7 @@ export default function ServiceSearchResults({
           <div className="flex items-center space-x-4">
             <select
               className="block w-48 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6"
-              onChange={(e) => onSortChange(e.target.value)}
+              onChange={handleSortChange}
             >
               <option value="relevance">Relevance</option>
               <option value="price-low-high">Price: Low to High</option>
@@ -158,4 +162,6 @@ export default function ServiceSearchResults({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceSearchResults 

@@ -1,10 +1,12 @@
 'use client'
 
+import { FC, SVGProps } from 'react'
+
 interface Feature {
   id: string
   name: string
   description: string
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  icon: FC<SVGProps<SVGSVGElement>>
 }
 
 interface ServiceFeaturesProps {
@@ -13,11 +15,11 @@ interface ServiceFeaturesProps {
   subtitle?: string
 }
 
-export default function ServiceFeatures({
+const ServiceFeatures: FC<ServiceFeaturesProps> = ({
   features,
   title = 'Features',
   subtitle = 'Everything you need to know about our services',
-}: ServiceFeaturesProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -48,4 +50,6 @@ export default function ServiceFeatures({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceFeatures 

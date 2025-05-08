@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FC, FormEvent, ChangeEvent } from 'react'
 
 interface ContactFormProps {
   providerId: string
@@ -15,7 +15,7 @@ interface ContactFormData {
   message: string
 }
 
-export default function ContactForm({ providerId, providerName, onSubmit }: ContactFormProps) {
+const ContactForm: FC<ContactFormProps> = ({ providerId, providerName, onSubmit }) => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -26,7 +26,7 @@ export default function ContactForm({ providerId, providerName, onSubmit }: Cont
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
@@ -48,7 +48,7 @@ export default function ContactForm({ providerId, providerName, onSubmit }: Cont
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -191,4 +191,6 @@ export default function ContactForm({ providerId, providerName, onSubmit }: Cont
       </div>
     </form>
   )
-} 
+}
+
+export default ContactForm 

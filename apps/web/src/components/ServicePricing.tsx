@@ -1,5 +1,8 @@
 'use client'
 
+import { FC } from 'react'
+import Link from 'next/link'
+
 interface PricingPlan {
   id: string
   name: string
@@ -15,11 +18,11 @@ interface ServicePricingProps {
   subtitle?: string
 }
 
-export default function ServicePricing({
+const ServicePricing: FC<ServicePricingProps> = ({
   plans,
   title = 'Pricing Plans',
   subtitle = 'Choose the perfect plan for your needs',
-}: ServicePricingProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -50,7 +53,7 @@ export default function ServicePricing({
                 </span>
                 <span className="text-sm font-semibold leading-6 text-gray-600">/month</span>
               </p>
-              <a
+              <Link
                 href="#"
                 className={`mt-6 block rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                   plan.popular
@@ -59,7 +62,7 @@ export default function ServicePricing({
                 }`}
               >
                 Get started today
-              </a>
+              </Link>
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
@@ -85,4 +88,6 @@ export default function ServicePricing({
       </div>
     </div>
   )
-} 
+}
+
+export default ServicePricing 

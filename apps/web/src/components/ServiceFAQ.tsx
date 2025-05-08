@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, FC } from 'react'
 
 interface FAQ {
   id: string
@@ -14,11 +14,11 @@ interface ServiceFAQProps {
   subtitle?: string
 }
 
-export default function ServiceFAQ({
+const ServiceFAQ: FC<ServiceFAQProps> = ({
   faqs,
   title = 'Frequently asked questions',
   subtitle = 'Have questions? We have answers.',
-}: ServiceFAQProps) {
+}) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggleFAQ = (index: number) => {
@@ -39,6 +39,7 @@ export default function ServiceFAQ({
                     type="button"
                     className="flex w-full items-start justify-between text-left text-gray-900"
                     onClick={() => toggleFAQ(index)}
+                    aria-expanded={openIndex === index}
                   >
                     <span className="text-base font-semibold leading-7">{faq.question}</span>
                     <span className="ml-6 flex h-7 items-center">
@@ -88,4 +89,6 @@ export default function ServiceFAQ({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceFAQ 

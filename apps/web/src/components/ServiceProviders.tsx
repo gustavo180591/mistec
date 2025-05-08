@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { FC } from 'react'
 
 interface Provider {
   id: string
@@ -20,11 +21,11 @@ interface ServiceProvidersProps {
   subtitle?: string
 }
 
-export default function ServiceProviders({
+const ServiceProviders: FC<ServiceProvidersProps> = ({
   providers,
   title = 'Our Service Providers',
   subtitle = 'Meet our team of expert service providers',
-}: ServiceProvidersProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -89,4 +90,6 @@ export default function ServiceProviders({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceProviders 

@@ -2,25 +2,30 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { FC } from 'react'
 
-interface ProviderProfileProps {
-  provider: {
-    id: string
-    name: string
-    avatar: string
-    bio: string
-    rating: number
-    reviewCount: number
-    services: {
-      id: string
-      title: string
-      price: number
-      imageUrl: string
-    }[]
-  }
+interface Service {
+  id: string
+  title: string
+  price: number
+  imageUrl: string
 }
 
-export default function ProviderProfile({ provider }: ProviderProfileProps) {
+interface Provider {
+  id: string
+  name: string
+  avatar: string
+  bio: string
+  rating: number
+  reviewCount: number
+  services: Service[]
+}
+
+interface ProviderProfileProps {
+  provider: Provider
+}
+
+const ProviderProfile: FC<ProviderProfileProps> = ({ provider }) => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -113,4 +118,6 @@ export default function ProviderProfile({ provider }: ProviderProfileProps) {
       </div>
     </div>
   )
-} 
+}
+
+export default ProviderProfile 

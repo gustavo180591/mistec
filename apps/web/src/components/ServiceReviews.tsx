@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { FC } from 'react'
 
 interface Review {
   id: string
@@ -20,11 +21,11 @@ interface ServiceReviewsProps {
   subtitle?: string
 }
 
-export default function ServiceReviews({
+const ServiceReviews: FC<ServiceReviewsProps> = ({
   reviews,
   title = 'Customer Reviews',
   subtitle = 'What our customers say about our services',
-}: ServiceReviewsProps) {
+}) => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -87,4 +88,6 @@ export default function ServiceReviews({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceReviews 

@@ -1,17 +1,27 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { Fragment, useState, FC } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const sortOptions = [
+interface SortOption {
+  id: string
+  name: string
+}
+
+interface PriceRange {
+  id: string
+  name: string
+}
+
+const sortOptions: SortOption[] = [
   { id: 'price-asc', name: 'Price: Low to High' },
   { id: 'price-desc', name: 'Price: High to Low' },
   { id: 'rating-desc', name: 'Highest Rated' },
   { id: 'reviews-desc', name: 'Most Reviews' },
 ]
 
-const priceRanges = [
+const priceRanges: PriceRange[] = [
   { id: 'all', name: 'All Prices' },
   { id: '0-500', name: 'Under $500' },
   { id: '500-1000', name: '$500 - $1,000' },
@@ -25,21 +35,21 @@ interface ServiceFiltersProps {
   onSearchChange: (query: string) => void
 }
 
-export default function ServiceFilters({
+const ServiceFilters: FC<ServiceFiltersProps> = ({
   onSortChange,
   onPriceRangeChange,
   onSearchChange,
-}: ServiceFiltersProps) {
-  const [selectedSort, setSelectedSort] = useState(sortOptions[0])
-  const [selectedPriceRange, setSelectedPriceRange] = useState(priceRanges[0])
+}) => {
+  const [selectedSort, setSelectedSort] = useState<SortOption>(sortOptions[0])
+  const [selectedPriceRange, setSelectedPriceRange] = useState<PriceRange>(priceRanges[0])
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSortChange = (option: typeof sortOptions[0]) => {
+  const handleSortChange = (option: SortOption) => {
     setSelectedSort(option)
     onSortChange(option.id)
   }
 
-  const handlePriceRangeChange = (range: typeof priceRanges[0]) => {
+  const handlePriceRangeChange = (range: PriceRange) => {
     setSelectedPriceRange(range)
     onPriceRangeChange(range.id)
   }
@@ -165,4 +175,6 @@ export default function ServiceFilters({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceFilters 

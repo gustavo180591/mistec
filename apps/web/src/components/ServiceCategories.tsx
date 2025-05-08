@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { FC } from 'react'
 
 interface Category {
   id: string
@@ -17,11 +18,15 @@ interface ServiceCategoriesProps {
   subtitle?: string
 }
 
-export default function ServiceCategories({
+const ServiceCategories: FC<ServiceCategoriesProps> = ({
   categories,
   title = 'Service Categories',
   subtitle = 'Browse our wide range of services',
-}: ServiceCategoriesProps) {
+}) => {
+  const handleCategoryClick = (categoryId: string) => {
+    window.location.href = `/services?category=${categoryId}`
+  }
+
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -36,9 +41,7 @@ export default function ServiceCategories({
             <div
               key={category.id}
               className="group relative cursor-pointer"
-              onClick={() => {
-                window.location.href = `/services?category=${category.id}`
-              }}
+              onClick={() => handleCategoryClick(category.id)}
             >
               <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
                 <Image
@@ -63,4 +66,6 @@ export default function ServiceCategories({
       </div>
     </div>
   )
-} 
+}
+
+export default ServiceCategories 
